@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvj22xdipjoob"]
+
+[ext_resource type="Script" uid="uid://bab55kcw3ks2c" path="res://Scripts/Game.cs" id="1_iukft"]
+[ext_resource type="PackedScene" uid="uid://b7b7mnpqmm3t0" path="res://Prefabs/pipe.tscn" id="2_gl6un"]
+[ext_resource type="PackedScene" uid="uid://eyavsg7oi656" path="res://Scenes/game_over.tscn" id="3_fgofq"]
+[ext_resource type="Texture2D" uid="uid://bn2lpkdxcaboi" path="res://Assets/Images/background.png" id="3_j5yw3"]
+[ext_resource type="FontFile" uid="uid://cis4it1lmstb0" path="res://Assets/Fonts/Squares Bold Free.otf" id="4_b2bpf"]
+[ext_resource type="PackedScene" uid="uid://ibayujftpy4l" path="res://Prefabs/drone.tscn" id="4_kldst"]
+[ext_resource type="AudioStream" uid="uid://b4k12thklm70" path="res://Assets/Sounds/score.mp3" id="7_fgofq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7lihs"]
+font = ExtResource("4_b2bpf")
+font_size = 150
+font_color = Color(0.8784314, 0.85490197, 0.007843138, 1)
+shadow_size = 20
+shadow_color = Color(0.8784314, 0.85490197, 0.007843138, 0.37254903)
+shadow_offset = Vector2(0, 0)
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("PipeSpawnPoint", "Drone", "ScoreLabel", "ScoreSound")]
+script = ExtResource("1_iukft")
+PipePrefab = ExtResource("2_gl6un")
+GameOverScene = ExtResource("3_fgofq")
+PipeSpawnPoint = NodePath("Pipe spawn point")
+Drone = NodePath("Drone")
+ScoreLabel = NodePath("Background/Score")
+ScoreSound = NodePath("Score point")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_j5yw3")
+
+[node name="Score" type="Label" parent="Background"]
+offset_left = 1335.0
+offset_top = 564.0
+offset_right = 1775.0
+offset_bottom = 737.0
+text = "0"
+label_settings = SubResource("LabelSettings_7lihs")
+horizontal_alignment = 1
+
+[node name="Pipe spawn point" type="Node2D" parent="."]
+position = Vector2(2100, 540)
+
+[node name="Drone" parent="." instance=ExtResource("4_kldst")]
+position = Vector2(405, 552)
+
+[node name="Score point" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_fgofq")

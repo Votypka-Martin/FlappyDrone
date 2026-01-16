@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7b7mnpqmm3t0"]
+
+[ext_resource type="Texture2D" uid="uid://cglg3khxmhs0p" path="res://Assets/Images/pillar_spritesheet.png" id="1_8b0gk"]
+[ext_resource type="Script" uid="uid://d11l4wjeryxtv" path="res://Scripts/Pipe.cs" id="1_vxlem"]
+[ext_resource type="AudioStream" uid="uid://dbicrqmp47iwv" path="res://Assets/Sounds/electricity.mp3" id="3_gi8y3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxlem"]
+atlas = ExtResource("1_8b0gk")
+region = Rect2(0, 0, 512, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi8y3"]
+atlas = ExtResource("1_8b0gk")
+region = Rect2(512, 0, 512, 600)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_btvj7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxlem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi8y3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gyfp1"]
+size = Vector2(125, 530)
+
+[node name="Pipe" type="Node2D" node_paths=PackedStringArray("UpperPipe", "LowerPipe", "Audio")]
+scale = Vector2(1, 1.4)
+script = ExtResource("1_vxlem")
+UpperPipe = NodePath("AnimatedSprite2D")
+LowerPipe = NodePath("AnimatedSprite2D2")
+Audio = NodePath("AudioStreamPlayer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -300)
+sprite_frames = SubResource("SpriteFrames_btvj7")
+autoplay = "default"
+frame_progress = 0.44683743
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
+position = Vector2(-3.5, -27)
+shape = SubResource("RectangleShape2D_gyfp1")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 300)
+scale = Vector2(1, -1)
+sprite_frames = SubResource("SpriteFrames_btvj7")
+autoplay = "default"
+frame_progress = 0.44683743
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D2/Area2D"]
+position = Vector2(-3.5, -27)
+shape = SubResource("RectangleShape2D_gyfp1")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-100, -10, 200, 20)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gi8y3")
+volume_db = -80.0
+autoplay = true
+parameters/looping = true

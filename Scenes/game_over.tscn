@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://eyavsg7oi656"]
+
+[ext_resource type="Script" uid="uid://btq0j0kjcl1ts" path="res://Scripts/GameOver.cs" id="1_ek8ke"]
+[ext_resource type="Texture2D" uid="uid://bn2lpkdxcaboi" path="res://Assets/Images/background.png" id="2_eoghk"]
+[ext_resource type="FontFile" uid="uid://cis4it1lmstb0" path="res://Assets/Fonts/Squares Bold Free.otf" id="3_14u15"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j3ryr"]
+font = ExtResource("3_14u15")
+font_size = 150
+font_color = Color(0.8784314, 0.85490197, 0.007843138, 1)
+shadow_size = 20
+shadow_color = Color(0.8784314, 0.85490197, 0.007843138, 0.37254903)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rjluv"]
+font = ExtResource("3_14u15")
+font_size = 200
+font_color = Color(0.8784314, 0.33333334, 0.007843138, 1)
+shadow_size = 20
+shadow_color = Color(1, 1, 0, 0.8235294)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gjtdd"]
+font = ExtResource("3_14u15")
+font_size = 80
+shadow_size = 10
+shadow_color = Color(1, 1, 0, 1)
+
+[node name="Game over" type="Node2D" node_paths=PackedStringArray("ScoreLabel")]
+script = ExtResource("1_ek8ke")
+ScoreLabel = NodePath("Background/Score")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+modulate = Color(0.19076231, 0.19076234, 0.19076231, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_eoghk")
+
+[node name="Score" type="Label" parent="Background"]
+offset_left = 1335.0
+offset_top = 564.0
+offset_right = 1775.0
+offset_bottom = 737.0
+text = "0"
+label_settings = SubResource("LabelSettings_j3ryr")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 320.0
+offset_top = 91.0
+offset_right = 1672.0
+offset_bottom = 321.0
+text = "Game over"
+label_settings = SubResource("LabelSettings_rjluv")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 411.0
+offset_top = 879.0
+offset_right = 1623.0
+offset_bottom = 971.0
+text = "Press space to restart"
+label_settings = SubResource("LabelSettings_gjtdd")

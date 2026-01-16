@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://ibayujftpy4l"]
+
+[ext_resource type="Texture2D" uid="uid://di5kbmq7yp518" path="res://Assets/Images/sprite_sheet.png" id="1_8d5i7"]
+[ext_resource type="Script" uid="uid://by6vtprrppmjd" path="res://Scripts/Drone.cs" id="1_p8d1e"]
+[ext_resource type="AudioStream" uid="uid://t6srd7ig1qn6" path="res://Assets/Sounds/propeller.mp3" id="3_13bup"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8d1e"]
+atlas = ExtResource("1_8d5i7")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13bup"]
+atlas = ExtResource("1_8d5i7")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqayx"]
+atlas = ExtResource("1_8d5i7")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t542f"]
+atlas = ExtResource("1_8d5i7")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0n8fa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8d1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13bup")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqayx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t542f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 60.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcjkp"]
+radius = 27.0
+height = 82.0
+
+[node name="Drone" type="CharacterBody2D" node_paths=PackedStringArray("Animation", "Top", "Bottom", "Audio")]
+script = ExtResource("1_p8d1e")
+Animation = NodePath("Animation")
+Top = NodePath("Top")
+Bottom = NodePath("Bottom")
+Audio = NodePath("Propeller")
+
+[node name="Top" type="Node2D" parent="."]
+position = Vector2(0, -48)
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0n8fa")
+autoplay = "default"
+frame_progress = 0.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -3)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_pcjkp")
+
+[node name="Bottom" type="Node2D" parent="."]
+position = Vector2(0, 28)
+
+[node name="Propeller" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_13bup")
+parameters/looping = true
