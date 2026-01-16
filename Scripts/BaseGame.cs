@@ -27,7 +27,7 @@ public partial class BaseGame : Node2D
                     pipe.Speed = _pipeSpeed;
                 }
             }
-            if (_score % 3 == 0) TargetPipeCount++;
+            if (_score % 10 == 0) TargetPipeCount++;
 		}
 	}
 	private int _targetPipeCount = 2;
